@@ -26,7 +26,8 @@ module.exports = class Game {
 
     addPlayer(socket) {
         socket.emit("id", socket.id)
-        this.players[socket.id] = new Player();
+        this.players[socket.id] = new Player(this.map);
+        console.log(this.getState())
     }
 
     deletePlayer(socket) {

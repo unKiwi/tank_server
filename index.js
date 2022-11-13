@@ -11,7 +11,7 @@ const game = new Game(io);
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.emit("id", socket.id);
+    socket.emit("id", "socket.id");
 
     socket.on('user data', data => {
         console.log(data)
@@ -19,12 +19,16 @@ io.on('connection', (socket) => {
         game.addPlayer(socket);
     });
 
-    socket.on('move', data => {
-        console.log(data)
+    socket.on('state', data => {
+        // console.log(data)
     });
 
-    socket.on('click', () => {
-        console.log("click")
+    socket.on('cannonDirection', data => {
+        game.players[socket.id].tank.cannonDirection = data;
+    });
+
+    socket.on('fire', () => {
+        console.log("fire")
     });
 
     socket.on('disconnect', () => {
@@ -34,6 +38,4 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(80, () => {
-    console.log('listening on *:80');
-});
+server.listen(80);
